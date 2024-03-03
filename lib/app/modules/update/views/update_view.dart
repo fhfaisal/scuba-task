@@ -17,12 +17,12 @@ class UpdateView extends GetView<UpdateController> {
         ),
         body:SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text(
-                  "Project ID : ${controller.allDataModel.value.id}",
+                  "Project ID : ${controller.allDataModel.id}",
                   style: const TextStyle(fontStyle:FontStyle.italic,fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
                 const SizedBox(height: 16.0),

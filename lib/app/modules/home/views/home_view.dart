@@ -15,65 +15,65 @@ class HomeView extends GetView<HomeController> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          // fetchData();
+          controller.getAllData();
           await Future.delayed(const Duration(seconds: 2));
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 15),
-          child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => controller.navigateToUpdatePage(),
-                      child: Card(
-                          elevation: 5,
-                          color: blueClr.withOpacity(0.5),
-                          child: SizedBox(
-                            height: 100,
-                            child: Row(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                                  child: CircleAvatar(
-                                      radius: 35,
-                                      backgroundColor: blueClr,
-                                      child: Text(
-                                        controller.allDataModel.value.id.toString(),
-                                        style: const TextStyle(fontSize: 30, color: Colors.white),
-                                      )),
-                                ),
-                                Expanded(
-                                    flex: 5,
-                                    child: Container(
-                                        width: double.infinity,
-                                        height: double.infinity,
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                            color: blueClr.withOpacity(0.9),
-                                            borderRadius: const BorderRadius.only(
-                                                topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
-                                        child: SingleChildScrollView(
-                                          physics: const NeverScrollableScrollPhysics(),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(controller.projectNameController.text,
-                                                  style: const TextStyle(fontSize: 18, color: Colors.white)),
-                                              Text(controller.startDateController.text,
-                                                  style: const TextStyle(fontSize: 14, color: Colors.white)),
-                                              Text(controller.endDateController.text,
-                                                  style: const TextStyle(fontSize: 14, color: Colors.white)),
-                                              Text(controller.projectUpdateController.text,
-                                                  style: const TextStyle(fontSize: 12, color: Colors.white)),
-                                            ],
-                                          ),
-                                        ))),
-                              ],
-                            ),
-                          )),
-                    );
+          child: Obx(() => ListView.builder(
+            itemCount: controller.allDataModel.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () => controller.navigateToUpdatePage(index),
+                child: Card(
+                    elevation: 5,
+                    color: blueClr.withOpacity(0.5),
+                    child: SizedBox(
+                      height: 100,
+                      child: Row(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            child: CircleAvatar(
+                                radius: 35,
+                                backgroundColor: blueClr,
+                                child: Text(
+                                  controller.allDataModel.elementAt(index).id.toString(),
+                                  style: const TextStyle(fontSize: 30, color: Colors.white),
+                                )),
+                          ),
+                          Expanded(
+                              flex: 5,
+                              child: Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: blueClr.withOpacity(0.9),
+                                      borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(10), bottomRight: Radius.circular(10))),
+                                  child: SingleChildScrollView(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(controller.allDataModel.elementAt(index).projectName.toString(),
+                                            style: const TextStyle(fontSize: 18, color: Colors.white)),
+                                        Text(controller.allDataModel.elementAt(index).startDate.toString(),
+                                            style: const TextStyle(fontSize: 14, color: Colors.white)),
+                                        Text(controller.allDataModel.elementAt(index).endDate.toString(),
+                                            style: const TextStyle(fontSize: 14, color: Colors.white)),
+                                        Text(controller.allDataModel.elementAt(index).projectUpdate.toString(),
+                                            style: const TextStyle(fontSize: 12, color: Colors.white)),
+                                      ],
+                                    ),
+                                  ))),
+                        ],
+                      ),
+                    )),
+              );
             },
-          ),
+          )),
         ),),
       floatingActionButton: InkWell(
           onTap: () => controller.navigateToAddPage(),
